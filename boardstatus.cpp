@@ -77,8 +77,6 @@ BoardStatus::BoardStatus(int boardSize)
     this->emptyFlag = true;
     this->newChessToTry = new QPoint(0, 0);
 
-    this->numOfEvaluation = 0;
-
     for (int i = 0; i < 10; i++)
     {
         this->nextStep[i] = new QPoint(0, 0);
@@ -123,8 +121,6 @@ QPoint BoardStatus::getNextStep()
     addChessAt(this->nextStep[0]->x(), this->nextStep[0]->y(), whiteChess);
 
     //printTypeNum();
-    qDebug() << this->numOfEvaluation;
-    this->numOfEvaluation = 0;
 
     return *this->nextStep[0];
 }
@@ -262,8 +258,6 @@ int BoardStatus::ABNegaMax (int depth, int alpha, int beta)
         //printBoard_Debug();
         //qDebug() << "         " << this->evaluateTemp << score;
         //qDebug() << x << y;
-
-        this->numOfEvaluation++;
 
         return score;
     }

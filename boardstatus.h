@@ -160,8 +160,6 @@ private:
     int evaluateTemp;
     QPoint *nextStep[10];
     bool chessMap[15];
-
-    int numOfEvaluation;
 };
 
 #endif // BOARDSTATUS_H
