@@ -47,6 +47,7 @@ enum eChessType {
     NONE_STATU              = 22             //都无
 };
 
+//白棋评分表
 const int evaluateMapWhite[chessTypeNum] = {
     10000000,   //  0   FIVE                     五
     1000000,    //  1   FIVE_1
@@ -73,6 +74,7 @@ const int evaluateMapWhite[chessTypeNum] = {
     0,          //  22  NONE_STATU              都无
 };
 
+//黑棋评分表
 const int evaluateMapBlack[chessTypeNum] = {
     100000000,  //  0   FIVE                     五
     30000000,   //  1   FIVE_1
