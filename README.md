@@ -1,1 +1,1 @@
-# HelloGame
+# 五子棋AI #
