@@ -48,7 +48,7 @@ enum eChessType {
 };
 
 const int evaluateMapWhite[chessTypeNum] = {
-    10000000,    //  0   FIVE                     五
+    10000000,   //  0   FIVE                     五
     1000000,    //  1   FIVE_1
     3000000,    //  2   LIVE_FOUR               活四
     800000,     //  3   DEATH_FOUR              死四
@@ -74,11 +74,11 @@ const int evaluateMapWhite[chessTypeNum] = {
 };
 
 const int evaluateMapBlack[chessTypeNum] = {
-    100000000,    //  0   FIVE                     五
-    30000000,    //  1   FIVE_1
-    60000000,    //  2   LIVE_FOUR               活四
-    40000000,     //  3   DEATH_FOUR              死四
-    20000000,     //  4   DEATH_FOUR_1
+    100000000,  //  0   FIVE                     五
+    30000000,   //  1   FIVE_1
+    60000000,   //  2   LIVE_FOUR               活四
+    40000000,   //  3   DEATH_FOUR              死四
+    20000000,   //  4   DEATH_FOUR_1
     40000,      //  5   DEATH_FOUR_2
     80000,      //  6   LIVE_THREE              活三
     50000,      //  7   LIVE_THREE_1

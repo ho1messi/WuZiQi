@@ -5,7 +5,7 @@
 
 eChessType hashTable[64] = {
     NONE_STATU          ,   //  0   000000
-    DEATH_ONE            ,   //  1   000001
+    DEATH_ONE            ,  //  1   000001
     LIVE_ONE            ,   //  2   000010
     DEATH_TWO           ,   //  3   000011
     LIVE_ONE            ,   //  4   000100
@@ -36,7 +36,7 @@ eChessType hashTable[64] = {
     DEATH_FOUR_1        ,   //  29  011101
     LIVE_FOUR           ,   //  30  011110
     FIVE                ,   //  31  011111
-    DEATH_ONE            ,   //  32  100000
+    DEATH_ONE            ,  //  32  100000
     DEATH_TWO_4         ,   //  33  100001
     DEATH_TWO_3         ,   //  34  100010
     DEATH_THREE_3       ,   //  35  100011
