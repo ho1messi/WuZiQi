@@ -75,7 +75,6 @@ BoardStatus::BoardStatus(int boardSize)
     this->board = new BoardPoint * [boardSize];
     this->boardSize = boardSize;
     this->emptyFlag = true;
-    this->newChessToTry = new QPoint(0, 0);
 
     for (int i = 0; i < 10; i++)
     {
@@ -240,7 +239,6 @@ void BoardStatus::lookForward()
 {
     this->nextStep[0]->setX(14);
     this->nextStep[0]->setY(14);
-    //lookForwardMax(0, -ifinity, ifinity, 0, 0);
     ABNegaMax(0, -ifinity, ifinity);
 }
 
@@ -255,20 +253,14 @@ int BoardStatus::ABNegaMax (int depth, int alpha, int beta)
         {
             score = -score;
         }
-        //printBoard_Debug();
-        //qDebug() << "         " << this->evaluateTemp << score;
-        //qDebug() << x << y;
 
         return score;
     }
 
     for (int i = 0; i < boardSize; i++)
-    //for (int i = 5; i < 10; i++)
     {
         for (int j = 0; j < boardSize; j++)
-        //for (int j = 5; j < 10; j++)
         {
-            //qDebug() << i << j << haveChess(i, j);
             if (isValid(i, j))
             {
                 addChessAt(i, j, (depth % 2) ? blackChess : whiteChess);
@@ -284,10 +276,6 @@ int BoardStatus::ABNegaMax (int depth, int alpha, int beta)
 
                 if (score > scoreMax)
                 {
-                    //qDebug() << "----------------------------------------------";
-                    //printTypeNum();
-                    //printBoard_Debug();
-                    //qDebug() << "         " << this->evaluateTemp << score;
                     this->nextStep[depth]->setX(i);
                     this->nextStep[depth]->setY(j);
                     scoreMax = score;
@@ -312,15 +300,12 @@ void BoardStatus::lookForwardOnce()
     int score = 0;
     int scoreMax = -ifinity;
 
-    qDebug() << "---------------------------------";
+    //qDebug() << "---------------------------------";
 
     for (int i = 0; i < boardSize; i++)
-    //for (int i = 5; i < 10; i++)
     {
         for (int j = 0; j < boardSize; j++)
-        //for (int j = 5; j < 10; j++)
         {
-            //qDebug() << i << j << haveChess(i, j);
             if (isValid(i, j))
             {
                 addChessAt(i, j, whiteChess);
@@ -329,10 +314,6 @@ void BoardStatus::lookForwardOnce()
 
                 if (score > scoreMax)
                 {
-                    //qDebug() << "----------------------------------------------";
-                    //printTypeNum();
-                    //printBoard_Debug();
-                    //qDebug() << "         " << this->evaluateTemp << score;
                     this->nextStep[0]->setX(i);
                     this->nextStep[0]->setY(j);
                     scoreMax = score;
@@ -342,132 +323,11 @@ void BoardStatus::lookForwardOnce()
     }
 }
 
-int BoardStatus::lookForwardMax(int depth, int alpha, int beta, int x, int y)
-{
-    int temp = 0;
-
-    if (depth >= depthMax)
-    {
-        temp = getEvaluate();
-        //printBoard_Debug();
-        //qDebug() << "         " << this->evaluateTemp << temp;
-        //qDebug() << x << y;
-
-        if (temp > this->evaluateTemp)
-        {
-            this->nextStep[depth]->setX(x);
-            this->nextStep[depth]->setY(y);
-            this->evaluateTemp = temp;
-        }
-        return temp;
-    }
-
-    //qDebug() << "Max--------" << depth;
-    //for (int i = 0; i < boardSize; i++)
-    for (int i = 0; i < boardSize; i++)
-    {
-        //for (int j = 0; j < boardSize; j++)
-        for (int j = 0; j < boardSize; j++)
-        {
-            //qDebug() << i << j << haveChess(i, j);
-            if (isValid(i, j))
-            {
-                addChessAt(i, j, whiteChess);
-                if (depth)
-                {
-                    temp = lookForwardMin(depth + 1, alpha, beta, x, y);
-                }
-                else
-                {
-                    temp = lookForwardMin(depth + 1, alpha, beta, i, j);
-                }
-                removeChessAt(i, j);
-                /*
-                if (depth == 0 && temp > this->evaluateTemp)
-                {
-                    qDebug() << "         " << this->evaluateTemp << temp;
-                    this->nextStep->setX(i);
-                    this->nextStep->setY(j);
-                    this->evaluateTemp = temp;
-                    qDebug() << i << j;
-                }
-                */
-                if (temp >= beta)
-                {
-                    //return alpha;
-                }
-                else if (temp > alpha)
-                {
-                    alpha = temp;
-                }
-            }
-        }
-    }
-
-    //return alpha;
-    return temp;
-}
-
-int BoardStatus::lookForwardMin(int depth,int alpha, int beta, int x, int y)
-{
-    int temp = 0;
-
-    if (depth >= depthMax)
-    {
-        temp = getEvaluate();
-        /*
-        printBoard_Debug();
-        qDebug() << "  MIN   " << this->evaluateTemp << temp;
-        qDebug() << x << y;
-        */
-        if (temp >= this->evaluateTemp)
-        {
-            this->nextStep[depth]->setX(x);
-            this->nextStep[depth]->setY(y);
-            this->evaluateTemp = temp;
-            //qDebug() << "  MIN   " << this->evaluateTemp << temp;
-        }
-        return temp;
-    }
-
-    //qDebug() << "Min--------" << depth;
-    //for (int i = 0; i < boardSize; i++)
-    for (int i = 5; i < 9; i++)
-    {
-        //for (int j = 0; j < boardSize; j++)
-        for (int j = 5; j < 9; j++)
-        {
-            if (isValid(i, j))
-            {
-                addChessAt(i, j, blackChess);
-                temp = lookForwardMax(depth + 1, alpha, beta, x, y);
-                removeChessAt(i, j);
-
-                if (temp <= alpha)
-                {
-                    //return beta;
-                }
-                else if (temp < beta)
-                {
-                    beta = temp;
-                }
-            }
-
-        }
-    }
-
-    //return beta;
-    return temp;
-}
-
 inline void BoardStatus::addChessAt(int x, int y, eChessColor color)
 {
     if (haveChess(x, y) == noChess)
     {
         this->board[x][y].chess = color;
-        this->newChessToTry->setX(x);
-        this->newChessToTry->setY(y);
-        //addFlag 为 true 表示增加棋子方式更新
     }
 }
 
@@ -477,9 +337,6 @@ inline void BoardStatus::removeChessAt(int x, int y)
     if (color != noChess && color != noSpace)
     {
         this->board[x][y].chess = noChess;
-        this->newChessToTry->setX(x);
-        this->newChessToTry->setY(y);
-        //addFlag 为 false 表示删除棋子方式更新
     }
 }
 
@@ -630,8 +487,6 @@ inline void BoardStatus::checkChessStatus(const QPoint & chess, eDirection direc
     eChessColor nextColor = color;
     bool doubleFlag = true;
 
-    //qDebug() << chess.x() << chess.y();
-
     if (color == noChess || this->board[chess.x()][chess.y()].boardFlags[direct] == true)
     {
         return;
@@ -658,7 +513,6 @@ inline void BoardStatus::checkChessStatus(const QPoint & chess, eDirection direc
 
         rightWidth++;
         getNextPoint(nextChess, direct, true);
-        //qDebug() << nextChess.x() << nextChess.y() << haveChess(nextChess);
         nextColor = haveChess(nextChess);
     }
 
@@ -708,8 +562,6 @@ inline void BoardStatus::checkChessStatus(const QPoint & chess, eDirection direc
     {
         bitMap = bitMap << (6 - leftWidth - rightWidth);
     }
-
-    //printBoard_Debug();
 
     getHashValue(bitMap, leftWidth + rightWidth, color, doubleFlag);
 }

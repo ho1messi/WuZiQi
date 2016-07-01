@@ -115,8 +115,6 @@ private:
     void lookForward();
     void lookForwardOnce();
     int ABNegaMax (int depth, int alpha, int beta);
-    int lookForwardMax(int depth, int alpha, int beta, int x, int y);
-    int lookForwardMin(int depth, int alpha, int beta, int x, int y);
     inline void addChessAt(int x, int y, eChessColor color);
     inline void removeChessAt(int x, int y);
     bool isOutOfBoard(int x, int y);
@@ -152,14 +150,9 @@ private:
     int boardSize;
     int numOfTypesBlack[chessTypeNum];
     int numOfTypesWhite[chessTypeNum];
-    int evaluateChange;
     BoardPoint **board;
-    //StepNode *stepLink;
     bool emptyFlag;
-    QPoint *newChessToTry;
-    int evaluateTemp;
     QPoint *nextStep[10];
-    bool chessMap[15];
 };
 
 #endif // BOARDSTATUS_H
